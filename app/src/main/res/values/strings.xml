@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">T9 Search</string>
+    <string name="activity_main_search_hint">Input some numbers!</string>
+    <string name="activity_main_button_text">T9!</string>
 </resources>
