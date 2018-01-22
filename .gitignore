@@ -53,3 +53,9 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+.idea/vcs.xml
+.idea/runConfigurations.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/encodings.xml
