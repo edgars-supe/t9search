@@ -1,7 +1,10 @@
 package lv.esupe.t9search.model
 
 
-
+/**
+ * A T9 resolver for a Trie tree. Maps keys to their respective digits on a phone keypad, i.e.,
+ * 'a', 'b', 'c' => '2'; 'd', 'e', 'f' => '3' and so on.
+ */
 class T9Resolver : ValueKeyResolver {
     private val keyValues: HashMap<Char, Char> = HashMap()
 
