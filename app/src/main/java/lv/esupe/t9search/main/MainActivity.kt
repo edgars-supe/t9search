@@ -11,7 +11,6 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import kotlinx.android.synthetic.main.activity_main.*
 import lv.esupe.t9search.R
-import lv.esupe.t9search.model.T9Resolver
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -21,11 +20,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.mainState.observe(this, Observer {
-            onMainStateChanged(it)
+        viewModel.mainState.observe(this, Observer { mainState ->
+            onMainStateChanged(mainState)
         })
-        val inputStream = resources.openRawResource(R.raw.wordlist)
-        viewModel.init(inputStream, T9Resolver())
         setUpViews()
     }
 

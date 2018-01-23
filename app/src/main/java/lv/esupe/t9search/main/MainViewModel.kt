@@ -2,30 +2,20 @@ package lv.esupe.t9search.main
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import lv.esupe.t9search.model.Trie
-import lv.esupe.t9search.model.ValueKeyResolver
-import java.io.BufferedReader
-import java.io.InputStream
+import lv.esupe.t9search.model.T9Trie
 
 
 class MainViewModel : ViewModel() {
     val mainState = MutableLiveData<MainState>()
-    private lateinit var trie: Trie
+    var maxResults = 50
 
-    fun init(dictionaryInputStream: InputStream, resolver: ValueKeyResolver) {
-        val bufferedReader = BufferedReader(dictionaryInputStream.reader())
-        val words = ArrayList<String>()
-        bufferedReader.forEachLine { word ->
-            words.add(word)
-        }
-
-        trie = Trie(resolver)
-        trie.loadDictionary(words)
-    }
-
+    /**
+     * To be called when the user clicks the search button.
+     */
     fun onSearchClicked(term: String) {
-        val words = trie.lookup(term)
-        val subList = words.subList(0, Math.min(50, words.lastIndex))
-        mainState.value = MainState(term, subList)
+        val sanitized = T9Trie.sanitize(term)
+        val words = T9Trie.lookup(sanitized)
+        val subList = words.subList(0, Math.min(maxResults - 1, words.size))
+        mainState.value = MainState(sanitized, subList)
     }
 }

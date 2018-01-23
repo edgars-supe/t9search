@@ -3,7 +3,7 @@ package lv.esupe.t9search.model
 import java.util.*
 
 /**
- * A node in a Trie tree. Contains a list of values whose keys match, starting from root, and the
+ * A node in a T9Trie tree. Contains a list of values whose keys match, starting from root, and the
  * node's children.
  */
 class TrieNode(val key: Char) : Iterable<TrieNode> {
