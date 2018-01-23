@@ -35,12 +35,13 @@ class MainActivity : AppCompatActivity() {
     private fun onMainStateChanged(mainState: MainState?) {
         mainState?.let {
             val builder = SpannableStringBuilder()
-            it.words.forEach { word ->
+            val color = ForegroundColorSpan(Color.BLUE)
+            mainState.words.forEach { word ->
                 val string = SpannableString(word)
                 string.setSpan(
-                    ForegroundColorSpan(Color.BLUE),
+                    color,
                     0,
-                    it.term.length,
+                    mainState.term.length,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 builder.appendln(string)
             }
