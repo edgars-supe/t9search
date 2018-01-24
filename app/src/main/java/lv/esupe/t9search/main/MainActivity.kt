@@ -2,27 +2,29 @@ package lv.esupe.t9search.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
+import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import lv.esupe.t9search.App
 import lv.esupe.t9search.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
+    private val results = ArrayList<String>()
+    private val adapter = ResultAdapter(results)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val dictionary = (applicationContext as App).dictionary
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.init(dictionary)
         viewModel.mainState.observe(this, Observer { mainState ->
             onMainStateChanged(mainState)
         })
+
         setUpViews()
     }
 
@@ -30,22 +32,17 @@ class MainActivity : AppCompatActivity() {
         searchButton.setOnClickListener {
             viewModel.onSearchClicked(searchInput.text.toString())
         }
+
+        resultsRecycler.adapter = adapter
+        resultsRecycler.layoutManager =
+                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun onMainStateChanged(mainState: MainState?) {
         mainState?.let {
-            val builder = SpannableStringBuilder()
-            val color = ForegroundColorSpan(Color.BLUE)
-            mainState.words.forEach { word ->
-                val string = SpannableString(word)
-                string.setSpan(
-                    color,
-                    0,
-                    mainState.term.length,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                builder.appendln(string)
-            }
-            resultsView.text = builder
+            results.clear()
+            results.addAll(it.words)
+            adapter.notifyDataSetChanged()
         }
     }
 }

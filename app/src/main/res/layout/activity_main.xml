@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context="lv.esupe.t9search.main.MainActivity">
 
+    <android.support.constraint.Barrier android:id="@+id/inputBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="searchInput,searchButton"/>
+
     <EditText
         android:id="@+id/searchInput"
         android:layout_width="0dp"
@@ -13,7 +19,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
         android:hint="@string/activity_main_search_hint"
         android:inputType="number"
         android:maxLines="1"
@@ -29,26 +34,13 @@
         android:text="@string/activity_main_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.constraint.Guideline android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="64dp" />
-
-    <ScrollView android:id="@+id/scrollView"
+    
+    <android.support.v7.widget.RecyclerView android:id="@+id/resultsRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/guideline"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputBarrier"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView android:id="@+id/resultsView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </ScrollView>
-
-
+        app:layout_constraintBottom_toBottomOf="parent" />
+    
 </android.support.constraint.ConstraintLayout>

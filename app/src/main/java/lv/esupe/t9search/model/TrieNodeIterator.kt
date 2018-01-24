@@ -3,7 +3,7 @@ package lv.esupe.t9search.model
 import java.util.*
 
 /**
- * An Iterator for TrieNodes.
+ * An Iterator for [TrieNode].
  */
 class TrieNodeIterator(
     root: TrieNode
