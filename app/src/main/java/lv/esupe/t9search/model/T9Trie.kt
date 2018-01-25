@@ -48,7 +48,7 @@ class T9Trie : Dictionary {
      * @param term The term to sanitize.
      * @return `term` with invalid keys removed
      */
-    fun sanitize(term: String): String {
+    private fun sanitize(term: String): String {
         return term.filter { char ->
             char in validKeys
         }
