@@ -8,22 +8,20 @@ import java.util.*
 class TrieNodeIterator(
     root: TrieNode
 ) : Iterator<TrieNode> {
-    private val stack = Stack<TrieNode>()
+private val queue = ArrayList<TrieNode>()
 
     init {
-        stack.push(root)
+        queue.add(root)
     }
 
-    override fun hasNext(): Boolean = stack.size > 0
+    override fun hasNext(): Boolean = queue.size > 0
 
     override fun next(): TrieNode {
-        if (stack.size == 0) {
+        if (queue.size == 0) {
             throw NoSuchElementException()
         }
-        val node = stack.pop()
-        node.children.forEach { child ->
-            stack.push(child)
-        }
+        val node = queue.removeAt(0)
+        queue.addAll(node.children)
         return node
     }
 }
