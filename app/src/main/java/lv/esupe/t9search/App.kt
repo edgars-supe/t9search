@@ -13,22 +13,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val words = loadWordList(R.raw.wordlist)
-
         dictionary = T9Trie()
-        dictionary.loadDictionary(words)
-    }
 
-    private fun loadWordList(@RawRes listResId: Int): List<String> {
-        val inputStream = resources.openRawResource(listResId)
-        val bufferedReader = BufferedReader(inputStream.reader())
-        val words = ArrayList<String>()
-        bufferedReader.forEachLine { word ->
-            words.add(word)
-        }
-        bufferedReader.close()
-        inputStream.close()
-
-        return words
+        val intent = DictionaryService.createLoadDictionaryIntent(this, R.raw.wordlist)
+        startService(intent)
     }
 }
