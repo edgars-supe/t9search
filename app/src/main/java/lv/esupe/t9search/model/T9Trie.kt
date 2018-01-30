@@ -4,6 +4,7 @@ package lv.esupe.t9search.model
 class T9Trie : Dictionary {
     private val root = TrieNode('0')
     private val validKeys = '2'..'9'
+    private var isDictionaryLoaded = false
 
     /**
      * Loads the given list of `words` into a Trie structure.
@@ -19,6 +20,7 @@ class T9Trie : Dictionary {
             }
             node.values.add(word)
         }
+        isDictionaryLoaded = true
     }
 
     /**
@@ -41,6 +43,13 @@ class T9Trie : Dictionary {
         }
         return values
     }
+
+    /**
+     * Returns information on whether a dictionary has been loaded.
+     *
+     * @return `true` if a dictionary has been loaded, `false` otherwise
+     */
+    override fun isDictionaryLoaded(): Boolean = isDictionaryLoaded
 
     /**
      * Removes invalid characters (not in `'2'..'9'`) from `term`.

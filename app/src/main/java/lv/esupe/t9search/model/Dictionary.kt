@@ -7,4 +7,5 @@ package lv.esupe.t9search.model
 interface Dictionary {
     fun loadDictionary(words: Iterable<String>)
     fun lookup(digits: String): List<String>
+    fun isDictionaryLoaded(): Boolean
 }
