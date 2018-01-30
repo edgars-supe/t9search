@@ -73,14 +73,14 @@ class T9Trie : Dictionary {
     private fun transform(word: String): List<Char> {
         return word.mapNotNull { char ->
             when (char) {
-                in 'a'..'c' -> '2'
-                in 'd'..'f' -> '3'
-                in 'g'..'i' -> '4'
-                in 'j'..'l' -> '5'
-                in 'm'..'o' -> '6'
-                in 'p'..'s' -> '7'
-                in 't'..'v' -> '8'
-                in 'w'..'z' -> '9'
+                in 'a'..'c', in 'A'..'C' -> '2'
+                in 'd'..'f', in 'D'..'F' -> '3'
+                in 'g'..'i', in 'G'..'I' -> '4'
+                in 'j'..'l', in 'J'..'L' -> '5'
+                in 'm'..'o', in 'M'..'O' -> '6'
+                in 'p'..'s', in 'P'..'S' -> '7'
+                in 't'..'v', in 'T'..'V' -> '8'
+                in 'w'..'z', in 'W'..'Z' -> '9'
                 else -> null
             }
         }
