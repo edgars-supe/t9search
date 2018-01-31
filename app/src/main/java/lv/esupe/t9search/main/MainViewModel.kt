@@ -1,15 +1,18 @@
 package lv.esupe.t9search.main
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import lv.esupe.t9search.model.Dictionary
 
 
 class MainViewModel : ViewModel() {
-    val mainState = MutableLiveData<MainState>()
-    var maxResults = 50
+    val mainState: LiveData<MainState>
+        get() = _mainState
     private lateinit var dictionary: Dictionary
+    private val _mainState = MutableLiveData<MainState>()
     private var isInitialized = false
+    private var maxResults = 50
 
     /**
      * Initializes the ViewModel by setting the `dictionary` to use.
@@ -23,16 +26,16 @@ class MainViewModel : ViewModel() {
         this.dictionary = dictionary
 
         if (dictionary.isDictionaryLoaded()) {
-            mainState.postValue(MainState.Idle)
+            _mainState.postValue(MainState.Idle)
         } else {
-            mainState.postValue(MainState.Loading)
+            _mainState.postValue(MainState.Loading)
         }
 
         isInitialized = true
     }
 
     fun onDictionaryLoaded() {
-        mainState.postValue(MainState.Idle)
+        _mainState.postValue(MainState.Idle)
     }
 
     /**
@@ -44,6 +47,6 @@ class MainViewModel : ViewModel() {
         }
         val words = dictionary.lookup(term)
         val subList = words.subList(0, Math.min(maxResults - 1, words.size))
-        mainState.value = MainState.Loaded(subList)
+        _mainState.value = MainState.Loaded(subList)
     }
 }
