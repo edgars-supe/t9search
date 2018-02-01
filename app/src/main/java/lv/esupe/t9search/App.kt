@@ -1,10 +1,8 @@
 package lv.esupe.t9search
 
 import android.app.Application
-import android.support.annotation.RawRes
 import lv.esupe.t9search.model.Dictionary
 import lv.esupe.t9search.model.T9Trie
-import java.io.BufferedReader
 
 
 class App : Application() {
