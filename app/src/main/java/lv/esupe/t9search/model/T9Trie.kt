@@ -1,5 +1,7 @@
 package lv.esupe.t9search.model
 
+import java.util.*
+
 
 class T9Trie : Dictionary {
     private val root = TrieNode('0')
@@ -35,7 +37,7 @@ class T9Trie : Dictionary {
         term.forEach { key ->
             node = node.getNodeForKey(key)
         }
-        val values = ArrayList<String>()
+        val values = LinkedList<String>()
         if (node != root) {
             node.forEach { n ->
                 values.addAll(n.values)

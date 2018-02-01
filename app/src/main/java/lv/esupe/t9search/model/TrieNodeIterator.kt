@@ -8,19 +8,19 @@ import java.util.*
 class TrieNodeIterator(
     root: TrieNode
 ) : Iterator<TrieNode> {
-private val queue = ArrayList<TrieNode>()
+private val queue = LinkedList<TrieNode>()
 
     init {
         queue.add(root)
     }
 
-    override fun hasNext(): Boolean = queue.size > 0
+    override fun hasNext(): Boolean = queue.isNotEmpty()
 
     override fun next(): TrieNode {
-        if (queue.size == 0) {
+        if (queue.isEmpty()) {
             throw NoSuchElementException()
         }
-        val node = queue.removeAt(0)
+        val node = queue.removeFirst()
         queue.addAll(node.children)
         return node
     }

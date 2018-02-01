@@ -7,8 +7,8 @@ import java.util.*
  * node's children.
  */
 class TrieNode(val key: Char) : Iterable<TrieNode> {
-    val values = ArrayList<String>()
-    val children = ArrayList<TrieNode>()
+    val values = LinkedList<String>()
+    val children = LinkedList<TrieNode>()
 
     override fun iterator(): Iterator<TrieNode> {
         return TrieNodeIterator(this)
