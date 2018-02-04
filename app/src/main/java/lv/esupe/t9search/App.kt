@@ -1,6 +1,7 @@
 package lv.esupe.t9search
 
 import android.app.Application
+import android.support.v4.app.JobIntentService
 import lv.esupe.t9search.model.Dictionary
 import lv.esupe.t9search.model.T9Trie
 
@@ -14,6 +15,6 @@ class App : Application() {
         dictionary = T9Trie()
 
         val intent = DictionaryService.createLoadDictionaryIntent(this, R.raw.wordlist)
-        startService(intent)
+        JobIntentService.enqueueWork(this, DictionaryService::class.java, 0, intent)
     }
 }

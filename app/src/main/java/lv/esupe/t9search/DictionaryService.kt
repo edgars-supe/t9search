@@ -1,16 +1,16 @@
 package lv.esupe.t9search
 
-import android.app.IntentService
 import android.content.Context
 import android.content.Intent
 import android.support.annotation.RawRes
+import android.support.v4.app.JobIntentService
 import java.io.BufferedReader
 import java.io.InputStream
 
 
-class DictionaryService : IntentService(TAG) {
+class DictionaryService : JobIntentService() {
     companion object {
-        const val TAG = "DictionaryService"
+        const val JOB_ID = 76486
         const val INTENT_LOAD_DICTIONARY = "lv.esupe.t9search.INTENT_LOAD_DICTIONARY"
         const val RESULT_DICTIONARY_LOADED = "lv.esupe.t9search.RESULT_DICTIONARY_LOADED"
         private const val EXTRA_RAW_RES_ID = "EXTRA_RAW_RES_ID"
@@ -23,8 +23,8 @@ class DictionaryService : IntentService(TAG) {
         }
     }
 
-    override fun onHandleIntent(intent: Intent?) {
-        when (intent?.action) {
+    override fun onHandleWork(intent: Intent) {
+        when (intent.action) {
             INTENT_LOAD_DICTIONARY -> handleLoadDictionaryIntent(intent)
         }
     }
