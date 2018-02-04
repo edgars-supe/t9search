@@ -36,9 +36,17 @@ I had done this in a [previous version](https://github.com/edgars-supe/t9search/
 > `loadDictionary` should be called once when the app starts and can be slow.  
 
 The `dictionary` property of `App` and is created and loaded in `App#onCreate()`. Then it can be acquired in the Activity by casting `applicationContext as App` and using the property, sort of a poor man's dependency injection (most Dagger tutorials I've seen do something similar to get a `DaggerAppComponent`). I did it in `App` to ensure that it the dictionary isn't loaded every time you open an Activity that uses it.  
-The average load time is around 1600ms.  
+~~The average load time is around 1600ms.~~  
+After changing `ArrayList`s to `LinekdList`s, the average dictionary load time is around 350-450ms, a 4x improvement!  
 
 > `lookup` should be fast enough to be called on the main thread without causing stutter.  
 > `fun lookup(digits: String): List<String>` which returns words matching the search string. The results can be limited to a sane count.
 
-For more specific queries the look-up is done in a couple of ms or even faster, but for very broad queries, e.g., just `7`, it takes around 130ms. I limit the shown results to 50, but I do it in the ViewModel, because then `T9Trie` is usable in cases where we need all results. 
+~~For more specific queries the look-up is done in a couple of ms or even faster, but for very broad queries, e.g., just `7`, it takes around 130ms.~~ After the change to `LinkedList`s, specific queries take less than 1ms, broad queries are done in 4-30ms. I limit the shown results to 50, but I do it in the ViewModel, because then `T9Trie` is usable in cases where we need all results. 
+
+## Updates
+* Converted dictionary loading to be asynchronous using `JobIntentService`. While the dictionary is loading, a progress bar and text is shown to the user.  
+* Search now accepts words with upper-case letters.  
+* `MainViewModel` exposes a `LiveData` property instead of `MutableLiveData`.  
+* `T9Trie`, `TrieNode` and `TrieNodeIterator` now use `LinkedList`s to store data, because adding to a `LinkedList` is much, much faster. I looked in the code for `ArrayList.addAll()` and noticed that it's really inefficient for adding items (it creates a new array each time and copies data over to it). Then I remembered about the first thing you learn in university: linked lists. It's much faster to have a node reference a new node. The result is much, much faster look-up times and greatly improved dictionary load times.  
+* Made the search automatic - search as you type. The noticeable lag when entering the first digit caused me to look for more efficient implementations for lists, lead me to `LinkedList`. Removed the search button, too.  
