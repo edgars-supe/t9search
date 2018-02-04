@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpViews() {
-        searchButton.setOnClickListener {
-            viewModel.onSearchClicked(searchInput.text.toString())
-        }
+        searchInput.addTextChangedListener(SearchTextWatcher { term ->
+            viewModel.onSearchClicked(term)
+        })
 
         resultsRecycler.adapter = adapter
         resultsRecycler.layoutManager =
@@ -65,18 +65,19 @@ class MainActivity : AppCompatActivity() {
     private fun onIdleState() {
         resultsRecycler.visibility = View.VISIBLE
         loadingGroup.visibility = View.GONE
-        searchButton.isEnabled = true
         searchInput.isEnabled = true
     }
 
     private fun onLoadingState() {
         resultsRecycler.visibility = View.GONE
         loadingGroup.visibility = View.VISIBLE
-        searchButton.isEnabled = false
         searchInput.isEnabled = false
     }
 
     private fun onLoadedState(words: List<String>) {
+        resultsRecycler.visibility = View.VISIBLE
+        loadingGroup.visibility = View.GONE
+        searchInput.isEnabled = true
         results.clear()
         results.addAll(words)
         adapter.notifyDataSetChanged()

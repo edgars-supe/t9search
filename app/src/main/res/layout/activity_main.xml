@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context="lv.esupe.t9search.main.MainActivity">
 
-    <android.support.constraint.Barrier android:id="@+id/inputBarrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="searchInput,searchButton"/>
-
     <android.support.constraint.Group android:id="@+id/loadingGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,24 +21,15 @@
         android:hint="@string/activity_main_search_hint"
         android:inputType="number"
         android:maxLines="1"
-        app:layout_constraintEnd_toStartOf="@+id/searchButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/activity_main_button_text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     
     <android.support.v7.widget.RecyclerView android:id="@+id/resultsRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputBarrier"
+        app:layout_constraintTop_toBottomOf="@id/searchInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
