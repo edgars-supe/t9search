@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">T9 Search</string>
     <string name="activity_main_search_hint">Search contacts</string>
-    <string name="activity_main_loading">Loading dictionary...</string>
+    <string name="activity_main_loading">Loading contacts...</string>
     <string name="activity_main_empty">No contacts to display</string>
     <string name="activity_main_permission">This app needs "Read Contacts" permission to work</string>
 </resources>
