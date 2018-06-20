@@ -1,4 +1,4 @@
-package lv.esupe.t9search.main
+package lv.esupe.t9search.view
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import lv.esupe.t9search.R
 
 
 class ResultAdapter(
-    private val items: List<String>
+    private val items: List<ContactView>
 ) : RecyclerView.Adapter<ResultViewHolder>() {
     override fun getItemCount(): Int = items.size
 

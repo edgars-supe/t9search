@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.Intent
 
 
-class DictionaryStateReceiver(
+class ContactsStateReceiver(
     var onLoaded: (() -> Unit)?
 ) : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (intent?.action == DictionaryService.RESULT_DICTIONARY_LOADED) {
+        if (intent?.action == ContactsService.RESULT_CONTACTS_LOADED) {
             onLoaded?.invoke()
         }
     }

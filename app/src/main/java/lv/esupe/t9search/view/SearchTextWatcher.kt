@@ -1,4 +1,4 @@
-package lv.esupe.t9search.main
+package lv.esupe.t9search.view
 
 import android.text.Editable
 import android.text.TextWatcher

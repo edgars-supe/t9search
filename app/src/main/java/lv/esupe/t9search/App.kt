@@ -1,20 +1,30 @@
 package lv.esupe.t9search
 
+import android.Manifest
 import android.app.Application
+import android.content.pm.PackageManager
 import android.support.v4.app.JobIntentService
-import lv.esupe.t9search.model.Dictionary
-import lv.esupe.t9search.model.T9Trie
+import android.support.v4.content.ContextCompat
+import lv.esupe.t9search.model.ContactList
+import lv.esupe.t9search.model.Contacts
 
 
 class App : Application() {
-    lateinit var dictionary: Dictionary // poor man's DI
+    lateinit var contacts: Contacts // poor man's DI
         private set
 
     override fun onCreate() {
         super.onCreate()
-        dictionary = T9Trie()
+        contacts = ContactList()
 
-        val intent = DictionaryService.createLoadDictionaryIntent(this, R.raw.wordlist)
-        JobIntentService.enqueueWork(this, DictionaryService::class.java, 0, intent)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+            loadContacts()
+        }
+    }
+
+    fun loadContacts() {
+        val intent = ContactsService.createLoadContactsIntent(this)
+        JobIntentService.enqueueWork(this, ContactsService::class.java, 0, intent)
     }
 }
