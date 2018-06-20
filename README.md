@@ -1,6 +1,6 @@
 # T9 Search
 This app filters the user's contact list based on plain-text or T9 search. It highlights the matched string as well.
-The dictionary is read from a [word list](https://github.com/edgars-supe/t9search/blob/master/app/src/main/res/raw/wordlist) and stored in a [Trie](https://en.wikipedia.org/wiki/Trie). This allows us to easily find all words that match and are prefixed by a given key.  
+Contacts are read using a `Cursor` and the `ContactsContract` API.
 The results are output using `RecyclerView`.  
 The architecture of choice is MVVM, as made possible by [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html). This makes it easier to ensure separation of concerns - `MainActivity` is responsible for the UI, `MainViewModel` is responsible for the business logic, and `T9Trie` is responsible for the dictionary.  
 
