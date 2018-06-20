@@ -20,6 +20,7 @@ class ContactsService : JobIntentService() {
     }
     private val uri = ContactsContract.Contacts.CONTENT_URI
     private val projection = arrayOf(ContactsContract.Contacts.DISPLAY_NAME)
+    private val sort = "${ContactsContract.Contacts.DISPLAY_NAME} ASC"
 
     override fun onHandleWork(intent: Intent) {
         when (intent.action) {
@@ -28,7 +29,7 @@ class ContactsService : JobIntentService() {
     }
 
     private fun loadContacts() {
-        val cursor = contentResolver.query(uri, projection, null, null, "${ContactsContract.Contacts.DISPLAY_NAME} ASC")
+        val cursor = contentResolver.query(uri, projection, null, null, sort)
         val names = (0 until cursor.count).map {
             cursor.moveToNext()
             cursor.getString(0)
