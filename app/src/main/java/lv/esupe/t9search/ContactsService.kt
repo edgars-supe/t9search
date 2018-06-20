@@ -28,7 +28,7 @@ class ContactsService : JobIntentService() {
     }
 
     private fun loadContacts() {
-        val cursor = contentResolver.query(uri, projection, null, null, null)
+        val cursor = contentResolver.query(uri, projection, null, null, "${ContactsContract.Contacts.DISPLAY_NAME} ASC")
         val names = (0 until cursor.count).map {
             cursor.moveToNext()
             cursor.getString(0)
